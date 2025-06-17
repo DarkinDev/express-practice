@@ -3,17 +3,20 @@ const router = express.Router();
 
 router.use(logger);
 
+// http://localhost:3000/users?name=John => query
 router.get("/", (req, res) => {
   console.log(req.query.name);
   res.send("User List");
 });
 
+// http://localhost:3000/users/new => chạy đến file ./views/users/new.ejs
 router.get("/new", (req, res) => {
   res.render("users/new", { firstName: "Test" });
 });
 
+// kiem tra ten hop le => neu hop le thi in ra hoac ko hop le thi se bao loi
 router.post("/", (req, res) => {
-  const isValid = false;
+  const isValid = true;
   if (isValid) {
     users.push({ firstName: req.body.firstName });
     res.redirect(`/users/${users.length - 1}`);
@@ -25,6 +28,7 @@ router.post("/", (req, res) => {
   res.send("Hi");
 });
 
+// http://localhost:3000/users/[params] => lay user co id la 1
 router
   .route("/:id")
   .get((req, res) => {
